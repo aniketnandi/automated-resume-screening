@@ -171,13 +171,6 @@ print("Predicted Category:", le.inverse_transform(predicted_label)[0])
 ## Limitations and Future Work
 
 - **Small dataset:** with only 166 unique resumes and 3 to 13 per class, some categories have just one test sample. That makes per-class scores noisy.
-- **Model comparison:** the Logistic Regression, Random Forest, and SVM cell needs these imports before it will run:
-  ```python
-  from sklearn.linear_model import LogisticRegression
-  from sklearn.ensemble import RandomForestClassifier
-  from sklearn.svm import SVC
-  from sklearn.metrics import classification_report
-  ```
 - **Possible improvements:**
   - Use cross-validation and hyperparameter tuning (for example, `k` for KNN)
   - Try transformer embeddings such as BERT or Sentence-Transformers
