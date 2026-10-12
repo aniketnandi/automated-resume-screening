@@ -45,7 +45,7 @@ All of the work is in a single Jupyter notebook, `Automated Resume Screener.ipyn
 
 ## Dataset
 
-- **Source:** [Kaggle: aniketnandi/resume-dataset](https://www.kaggle.com/datasets/aniketnandi/resume-dataset) (also on [Google Drive](https://drive.google.com/file/d/1L5HyJRtNgTascKlQ9UpFSzCu4-h27wWI/view?usp=drive_link))
+- **Source:** [Kaggle: aniketnandi/resume-dataset](https://www.kaggle.com/datasets/aniketnandi/resume-dataset), a copy of the public [Resume Dataset](https://www.kaggle.com/datasets/gauravduttakiit/resume-dataset)
 - **File:** `UpdatedResumeDataSet.csv`
 - **Columns:**
   - `Category`: the job category label
@@ -140,10 +140,10 @@ The notebook finds the dataset automatically. It tries these sources in order an
 
 1. A local copy at `data/UpdatedResumeDataSet.csv`
 2. The same file in this GitHub repo
-3. The [Google Drive copy](https://drive.google.com/file/d/1L5HyJRtNgTascKlQ9UpFSzCu4-h27wWI/view?usp=drive_link)
-4. [Kaggle](https://www.kaggle.com/datasets/aniketnandi/resume-dataset), which needs `kagglehub.login()` if the dataset is private
+3. [My Kaggle copy](https://www.kaggle.com/datasets/aniketnandi/resume-dataset), which needs `kagglehub.login()` if the dataset is private
+4. The [original public upload on Kaggle](https://www.kaggle.com/datasets/gauravduttakiit/resume-dataset), which needs no login
 
-If none of them work, download `UpdatedResumeDataSet.csv` from the Google Drive link and put it in a `data/` folder next to the notebook.
+It only accepts a file that has the `Category` and `Resume` columns, so a different resume dataset can't be loaded by mistake. If no source works, download `UpdatedResumeDataSet.csv` from one of the Kaggle links and put it in a `data/` folder next to the notebook.
 
 ### Run
 
