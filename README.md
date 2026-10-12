@@ -18,7 +18,7 @@ A machine learning pipeline that reads a resume's raw text and predicts which jo
 | **Run it in your browser** | Click **[Open in Colab](https://colab.research.google.com/github/aniketnandi/automated-resume-screening/blob/main/Automated%20Resume%20Screener.ipynb)**, then choose **Runtime → Run all**. | A Google account. No installs, and no GPU needed |
 | **Run it on your machine** | Follow [Getting Started](#getting-started) below. | Python 3.10+ |
 
-The opening cells install anything missing and download the dataset from Kaggle, so **Run all** handles the setup. To try your own resume text, edit `sample_resume` in the last code cell and run it again.
+The opening cells install anything missing and download the dataset, so **Run all** handles the setup. No Kaggle account is needed. To try your own resume text, edit `sample_resume` in the last code cell and run it again.
 
 ## Table of Contents
 
@@ -136,24 +136,14 @@ pip install -r requirements.txt
 
 ### Getting the Data
 
-**Option A: Automatic (default)**
+The notebook finds the dataset automatically. It tries these sources in order and uses the first one that works:
 
-The notebook downloads the dataset from Kaggle with `kagglehub`:
+1. A local copy at `data/UpdatedResumeDataSet.csv`
+2. The same file in this GitHub repo
+3. The [Google Drive copy](https://drive.google.com/file/d/1L5HyJRtNgTascKlQ9UpFSzCu4-h27wWI/view?usp=drive_link)
+4. [Kaggle](https://www.kaggle.com/datasets/aniketnandi/resume-dataset), which needs `kagglehub.login()` if the dataset is private
 
-```python
-import kagglehub
-dataset_path = kagglehub.dataset_download('aniketnandi/resume-dataset')
-```
-
-If the download asks for credentials, run `kagglehub.login()` first.
-
-**Option B: Manual download**
-
-Download `UpdatedResumeDataSet.csv` from the [Google Drive link](https://drive.google.com/file/d/1L5HyJRtNgTascKlQ9UpFSzCu4-h27wWI/view?usp=drive_link). Skip the download cell and set `dataset_path` to the folder that contains the file:
-
-```python
-dataset_path = 'path/to/folder'
-```
+If none of them work, download `UpdatedResumeDataSet.csv` from the Google Drive link and put it in a `data/` folder next to the notebook.
 
 ### Run
 
