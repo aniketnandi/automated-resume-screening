@@ -2,6 +2,14 @@
 
 A machine learning pipeline that reads a resume's raw text and predicts which job category it belongs to (Data Science, HR, Java Developer, and so on). It cleans the text, turns it into TF-IDF features, and trains a K-Nearest Neighbors classifier. The goal is to sort incoming resumes into the right role automatically, so recruiters don't have to triage them by hand.
 
+**Highlights**
+- Classifies resumes into **25 job categories** with **0.82 test accuracy** (stratified hold-out set)
+- End-to-end NLP pipeline: regex text cleaning → TF-IDF → One-vs-Rest KNN
+- Exploratory analysis of the category balance and vocabulary, with charts
+- Ready-to-use inference on any new resume text
+
+[**View the notebook →**](Automated%20Resume%20Screener.ipynb)
+
 ## Table of Contents
 
 - [Overview](#overview)
@@ -43,6 +51,8 @@ The data covers **25 categories**:
 | Hadoop | ETL Developer | DotNet Developer | Blockchain | Testing |
 
 The classes are fairly imbalanced. Java Developer has the most samples (13) and PMO has the fewest (3).
+
+![Number of resumes per category](images/category_distribution.png)
 
 ## Project Workflow
 
@@ -100,7 +110,7 @@ The notebook includes a full per-class precision, recall, and F1 report for both
 ## Getting Started
 
 ### Prerequisites
-- Python 3.8+
+- Python 3.10+
 - Jupyter Notebook or JupyterLab (or run it on [Kaggle](https://www.kaggle.com/) or Google Colab)
 
 ### Installation
@@ -109,7 +119,7 @@ The notebook includes a full per-class precision, recall, and F1 report for both
 git clone https://github.com/aniketnandi/automated-resume-screening.git
 cd automated-resume-screening
 
-pip install numpy pandas matplotlib seaborn scikit-learn nltk wordcloud scipy kagglehub
+pip install -r requirements.txt
 python -m nltk.downloader stopwords punkt punkt_tab
 ```
 
@@ -117,20 +127,21 @@ python -m nltk.downloader stopwords punkt punkt_tab
 
 **Option A: Kaggle (used by the notebook)**
 
-The first two cells use `kagglehub` to log in and download the dataset:
+The notebook downloads the dataset automatically with `kagglehub`:
 
 ```python
 import kagglehub
-kagglehub.login()
-path = kagglehub.dataset_download('aniketnandi/resume-dataset')
+dataset_path = kagglehub.dataset_download('aniketnandi/resume-dataset')
 ```
+
+If the download asks for credentials, run `kagglehub.login()` first.
 
 **Option B: Manual download**
 
-Download `UpdatedResumeDataSet.csv` from the [Google Drive link](https://drive.google.com/file/d/1L5HyJRtNgTascKlQ9UpFSzCu4-h27wWI/view?usp=drive_link). Then change the path in the `pd.read_csv(...)` call:
+Download `UpdatedResumeDataSet.csv` from the [Google Drive link](https://drive.google.com/file/d/1L5HyJRtNgTascKlQ9UpFSzCu4-h27wWI/view?usp=drive_link). Skip the download cell and set `dataset_path` to the folder that contains the file:
 
 ```python
-resumeDataSet = pd.read_csv('path/to/UpdatedResumeDataSet.csv', encoding='utf-8')
+dataset_path = 'path/to/folder'
 ```
 
 ### Run
@@ -183,9 +194,12 @@ print("Predicted Category:", le.inverse_transform(predicted_label)[0])
 ```
 automated-resume-screening/
 ├── Automated Resume Screener.ipynb   # Full pipeline: EDA → preprocessing → modeling → inference
+├── images/
+│   └── category_distribution.png     # Chart used in this README
+├── requirements.txt                  # Python dependencies
 └── README.md
 ```
 
----
+## Author
 
-⭐ If you find this project useful, consider giving it a star!
+**Aniket Nandi** · [GitHub](https://github.com/aniketnandi)
