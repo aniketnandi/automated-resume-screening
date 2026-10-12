@@ -18,7 +18,7 @@ A machine learning pipeline that reads a resume's raw text and predicts which jo
 | **Run it in your browser** | Click **[Open in Colab](https://colab.research.google.com/github/aniketnandi/automated-resume-screening/blob/main/Automated%20Resume%20Screener.ipynb)**, then choose **Runtime → Run all**. | A Google account. No installs, and no GPU needed |
 | **Run it on your machine** | Follow [Getting Started](#getting-started) below. | Python 3.10+ |
 
-The opening cells install anything missing and download the dataset, so **Run all** handles the setup. No Kaggle account is needed. To try your own resume text, edit `sample_resume` in the last code cell and run it again.
+The dataset is included in the repo, and the opening cells install anything missing, so **Run all** handles the setup. No accounts or downloads are needed. To try your own resume text, edit `sample_resume` in the last code cell and run it again.
 
 ## Table of Contents
 
@@ -45,12 +45,13 @@ All of the work is in a single Jupyter notebook, `Automated Resume Screener.ipyn
 
 ## Dataset
 
-- **Source:** [Kaggle: aniketnandi/resume-dataset](https://www.kaggle.com/datasets/aniketnandi/resume-dataset), a copy of the public [Resume Dataset](https://www.kaggle.com/datasets/gauravduttakiit/resume-dataset)
+- **Location:** included in this repo at [`data/UpdatedResumeDataSet.csv`](data/UpdatedResumeDataSet.csv)
+- **Source:** a widely used public resume dataset. Copies are also available on [Hugging Face](https://huggingface.co/datasets/brackozi/Resume) and [Kaggle](https://www.kaggle.com/datasets/m0sm71/resumedata)
 - **File:** `UpdatedResumeDataSet.csv`
 - **Columns:**
   - `Category`: the job category label
   - `Resume`: the raw resume text
-- **Size:** 166 unique resumes after duplicates are removed
+- **Size:** 962 rows, or 166 unique resumes after duplicates are removed
 
 The data covers **25 categories**:
 
@@ -115,15 +116,20 @@ A `OneVsRestClassifier(KNeighborsClassifier())` is trained on a stratified 80/20
 
 | Model | Train Accuracy | Test Accuracy |
 |---|---|---|
-| One-vs-Rest KNN | **0.89** | **0.82** |
+| **One-vs-Rest KNN** | **0.89** | **0.82** |
+| Random Forest | | 0.71 |
+| Linear SVM | | 0.71 |
+| Logistic Regression | | 0.32 |
 
-The notebook includes a full per-class precision, recall, and F1 report for both the training and test sets.
+All models use the same TF-IDF features and the same stratified test set of 34 resumes. KNN performed best. Logistic Regression likely underfits because its default regularization is too strong for so few examples per class. The notebook includes a full per-class precision, recall, and F1 report for each model.
+
+Results were produced with scikit-learn 1.7.2, which the notebook pins. scikit-learn 1.8 changed KNN's results on this data (0.86 train / 0.76 test), so pinning keeps them reproducible.
 
 ## Getting Started
 
 ### Prerequisites
 - Python 3.10+
-- Jupyter Notebook or JupyterLab (or run it on [Kaggle](https://www.kaggle.com/) or Google Colab)
+- Jupyter Notebook or JupyterLab (or run it on Google Colab or Kaggle)
 
 ### Installation
 
@@ -136,14 +142,7 @@ pip install -r requirements.txt
 
 ### Getting the Data
 
-The notebook finds the dataset automatically. It tries these sources in order and uses the first one that works:
-
-1. A local copy at `data/UpdatedResumeDataSet.csv`
-2. The same file in this GitHub repo
-3. [My Kaggle copy](https://www.kaggle.com/datasets/aniketnandi/resume-dataset), which needs `kagglehub.login()` if the dataset is private
-4. The [original public upload on Kaggle](https://www.kaggle.com/datasets/gauravduttakiit/resume-dataset), which needs no login
-
-It only accepts a file that has the `Category` and `Resume` columns, so a different resume dataset can't be loaded by mistake. If no source works, download `UpdatedResumeDataSet.csv` from one of the Kaggle links and put it in a `data/` folder next to the notebook.
+Nothing to do: the dataset is in [`data/`](data/). When the repo isn't cloned (for example in Colab), the notebook reads the same file straight from GitHub.
 
 ### Run
 
@@ -178,7 +177,6 @@ print("Predicted Category:", le.inverse_transform(predicted_label)[0])
 - **NLP:** NLTK, regular expressions, scikit-learn `TfidfVectorizer`
 - **Machine learning:** scikit-learn (KNN, One-vs-Rest, LabelEncoder, train/test split, metrics)
 - **Visualization:** Matplotlib, Seaborn, WordCloud
-- **Data access:** kagglehub
 
 ## Limitations and Future Work
 
@@ -195,6 +193,8 @@ print("Predicted Category:", le.inverse_transform(predicted_label)[0])
 ```
 automated-resume-screening/
 ├── Automated Resume Screener.ipynb   # Full pipeline: EDA → preprocessing → modeling → inference
+├── data/
+│   └── UpdatedResumeDataSet.csv      # The resume dataset
 ├── images/
 │   └── category_distribution.png     # Chart used in this README
 ├── requirements.txt                  # Python dependencies
