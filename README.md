@@ -1,5 +1,7 @@
 # Automated Resume Screening
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/aniketnandi/automated-resume-screening/blob/main/Automated%20Resume%20Screener.ipynb)
+
 A machine learning pipeline that reads a resume's raw text and predicts which job category it belongs to (Data Science, HR, Java Developer, and so on). It cleans the text, turns it into TF-IDF features, and trains a K-Nearest Neighbors classifier. The goal is to sort incoming resumes into the right role automatically, so recruiters don't have to triage them by hand.
 
 **Highlights**
@@ -8,10 +10,19 @@ A machine learning pipeline that reads a resume's raw text and predicts which jo
 - Exploratory analysis of the category balance and vocabulary, with charts
 - Ready-to-use inference on any new resume text
 
-[**View the notebook →**](Automated%20Resume%20Screener.ipynb)
+## Try It Yourself
+
+| If you want to… | Do this | Setup |
+|---|---|---|
+| **See the code and results** | Open [the notebook](https://github.com/aniketnandi/automated-resume-screening/blob/main/Automated%20Resume%20Screener.ipynb). GitHub shows the charts and results inline. If it doesn't load, use [nbviewer](https://nbviewer.org/github/aniketnandi/automated-resume-screening/blob/main/Automated%20Resume%20Screener.ipynb). | None |
+| **Run it in your browser** | Click **[Open in Colab](https://colab.research.google.com/github/aniketnandi/automated-resume-screening/blob/main/Automated%20Resume%20Screener.ipynb)**, then choose **Runtime → Run all**. | A Google account. No installs, and no GPU needed |
+| **Run it on your machine** | Follow [Getting Started](#getting-started) below. | Python 3.10+ |
+
+The opening cells install anything missing and download the dataset from Kaggle, so **Run all** handles the setup. To try your own resume text, edit `sample_resume` in the last code cell and run it again.
 
 ## Table of Contents
 
+- [Try It Yourself](#try-it-yourself)
 - [Overview](#overview)
 - [Dataset](#dataset)
 - [Project Workflow](#project-workflow)
@@ -121,14 +132,13 @@ git clone https://github.com/aniketnandi/automated-resume-screening.git
 cd automated-resume-screening
 
 pip install -r requirements.txt
-python -m nltk.downloader stopwords punkt punkt_tab
 ```
 
 ### Getting the Data
 
-**Option A: Kaggle (used by the notebook)**
+**Option A: Automatic (default)**
 
-The notebook downloads the dataset automatically with `kagglehub`:
+The notebook downloads the dataset from Kaggle with `kagglehub`:
 
 ```python
 import kagglehub
@@ -151,7 +161,7 @@ dataset_path = 'path/to/folder'
 jupyter notebook "Automated Resume Screener.ipynb"
 ```
 
-Run the cells from top to bottom.
+Run the cells from top to bottom (**Cell → Run All**). The first cell downloads the NLTK word lists it needs.
 
 ## Usage: Classify a New Resume
 
