@@ -21,6 +21,7 @@ A machine learning pipeline that reads a resume's raw text and predicts which jo
 - [Tech Stack](#tech-stack)
 - [Limitations and Future Work](#limitations-and-future-work)
 - [Repository Structure](#repository-structure)
+- [License](#license)
 
 ## Overview
 
@@ -197,9 +198,14 @@ automated-resume-screening/
 ├── images/
 │   └── category_distribution.png     # Chart used in this README
 ├── requirements.txt                  # Python dependencies
+├── LICENSE
 └── README.md
 ```
 
 ## Author
 
 **Aniket Nandi** · [GitHub](https://github.com/aniketnandi)
+
+## License
+
+This project is released under the [MIT License](LICENSE).
